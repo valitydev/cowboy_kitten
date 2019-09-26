@@ -60,15 +60,15 @@ early_error(StreamID, Reason, PartialReq, Resp, Opts) ->
 handle_response({response, Code, Headers, Body} = Resp, #{resp_bodies := RespBodies}) ->
     case maps:is_key(Code, RespBodies) of
         true ->
-            send_oops_resp(Code, Headers, get_resp_body(Code, RespBodies), Body);
+            respond_with_body(Code, Headers, get_resp_body(Code, RespBodies), Body);
         false ->
             Resp
     end.
 
 
-send_oops_resp(Code, Headers, undefined, Body) ->
+respond_with_body(Code, Headers, undefined, Body) ->
     {response, Code, Headers, Body};
-send_oops_resp(Code, Headers0, RespBody, _) ->
+respond_with_body(Code, Headers0, RespBody, _) ->
     Size = get_body_length(RespBody),
     Headers = maps:merge(Headers0, #{
         <<"content-type">> => <<"text/plain; charset=utf-8">>,
@@ -116,8 +116,8 @@ make_state(Next, Opts) ->
         resp_bodies => get_resp_bodies(Opts)
     }.
 
-get_resp_bodies(Opts) ->
-    genlib_map:get(resp_bodies, Opts, #{}).
+get_resp_bodies(#{env := Env}) ->
+    genlib_map:get(resp_bodies, Env, #{}).
 
 -ifdef(TEST).
 -include_lib("eunit/include/eunit.hrl").
