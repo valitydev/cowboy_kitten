@@ -1,4 +1,4 @@
-{application, kitten_cowboy, [
+{application, cowboy_kitten, [
     {description, "Respond them with style"},
     {vsn, "0.1.0"},
     {registered, []},

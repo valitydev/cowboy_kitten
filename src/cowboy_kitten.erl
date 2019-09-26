@@ -1,4 +1,4 @@
--module(kitten_cowboy).
+-module(cowboy_kitten).
 -behaviour(cowboy_stream).
 
 %% callback exports
