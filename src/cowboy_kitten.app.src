@@ -29,6 +29,5 @@
     {maintainers, [
         "Toporkov Igor <i.toporkov@rbkmoney.com>"
     ]},
-    {licenses, []},
-    {links, []}
- ]}.
+    {licenses, ["Apache 2.0"]}
+]}.
