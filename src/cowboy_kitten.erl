@@ -17,7 +17,7 @@
 -type resp_body() :: {file, file:name_all()} | iodata().
 
 -type resp_bodies() :: #{
-    cowboy:status_code() => resp_body()
+    cowboy:http_status() => resp_body()
 }.
 
 %% callbacks
