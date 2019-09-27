@@ -134,11 +134,16 @@ success_kitten_file_test() ->
     R = handle_response({response, 500, #{}, <<"OLD BODY">>}, #{resp_bodies => #{500 => {file, KittenFile}}}),
     {_, _, _, {sendfile, _, _, KittenFile}} = R.
 
-
 -spec success_kitten_binary_test() -> _.
 
 success_kitten_binary_test() ->
     {ok, Kitten} = file:read_file(?KITTEN),
     {_, _, _, Kitten} = handle_response({response, 500, #{}, <<"OLD BODY">>}, #{resp_bodies => #{500 => Kitten}}).
+
+-spec no_replacement_test() -> _.
+
+no_replacement_test() ->
+    Body = <<"Can't replace me">>,
+    {_, _, _, Body} = handle_response({response, 500, #{}, Body}, #{resp_bodies => #{503 => <<"Unrelated">>}}).
 
 -endif.
